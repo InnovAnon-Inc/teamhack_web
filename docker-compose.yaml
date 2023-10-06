@@ -1,0 +1,43 @@
+version: '3.8'
+services:
+  teamhack_web:
+    env_file: .env
+    image: innovanon/teamhack_web
+    container_name:  teamhack_web
+    ports:
+      - "0.0.0.0:80:80/tcp"
+    volumes:
+      #- syslog-client:/etc/rsyslog.d:ro
+      - ca-certs:/var/teamhack/certs:ro
+      - ca-crl:/var/teamhack/crl:ro
+    #environment:
+    #  - QUARK_HOST=$QUARK_HOST
+    command: ["-h", $QUARK_HOST]
+    restart:         always
+    #network_mode:    service:vpn-s1
+    # TODO healthcheck by creating and revoking certs ?
+    #healthcheck:
+    #  test: ["CMD-SHELL", "python -c 'from requests import post; post(\"0.0.0.0\", data={\"host\":\"hackthebox.com\"})\"'"]
+    #  interval:     10s
+    #  timeout:       5s
+    #  retries:       10
+    #  test: ["CMD-SHELL", "exec 3<> /dev/tcp/0.0.0.0/3633 ; cat <&3 ; exec 3<&-"]
+    depends_on:
+      #postgres:
+      #  condition: service_healthy
+      syslog:
+        condition: service_started
+      #teamhack_dns:
+      #  condition: service_healthy
+    #networks:
+    #  network:
+    #    ipv4_address: 10.5.0.11
+        
+volumes:
+  ca-certs:
+    external: true
+  ca-crl:
+    external: true
+  #syslog-client:
+  #  external: true
+
