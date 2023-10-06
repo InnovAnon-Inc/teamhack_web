@@ -20,7 +20,7 @@ RUN make install
 FROM scratch
 
 COPY --from=build /lib/ld-musl-x86_64.so.1 /lib/
-COPY --from=build /usr/bin/quark           /usr/bin/
+COPY --from=build /usr/local/bin/quark     /usr/bin/
 
 WORKDIR  /var/teamhack
 VOLUME ["/var/teamhack/certs"]
