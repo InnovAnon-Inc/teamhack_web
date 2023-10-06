@@ -130,7 +130,7 @@ jobs:
         files: |
           Dockerfile
           docker-compose.yaml
-          #dist/*
+    #dist/*
 
     # TODO new image
     - name: Authenticate with Docker Hub
