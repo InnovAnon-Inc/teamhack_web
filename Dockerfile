@@ -28,8 +28,7 @@ VOLUME ["/var/teamhack/crl"]
 
   #"-h", $QUARK_HOST, \
 ENTRYPOINT [         \
-  "/usr/bin/env",    \
-  "quark",           \
+  "/usr/bin/quark",  \
   "-l"               \
 ]
 
