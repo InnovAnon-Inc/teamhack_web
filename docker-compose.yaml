@@ -10,6 +10,8 @@ services:
       #- syslog-client:/etc/rsyslog.d:ro
       - ca-certs:/var/teamhack/certs:ro
       - ca-crl:/var/teamhack/crl:ro
+      - git-repos:/var/teamhack/git:ro
+      - wordlists:/var/teamhack/wordlists:ro
     #environment:
     #  - QUARK_HOST=$QUARK_HOST
     command: ["-h", $QUARK_HOST]
