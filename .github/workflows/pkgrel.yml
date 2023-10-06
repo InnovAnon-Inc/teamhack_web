@@ -128,7 +128,9 @@ jobs:
         fail_on_unmatched_files: true
         generate_release_notes: true
         files: |
-          dist/*
+          Dockerfile
+          docker-compose.yaml
+          #dist/*
 
     # TODO new image
     - name: Authenticate with Docker Hub
