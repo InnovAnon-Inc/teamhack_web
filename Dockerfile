@@ -5,7 +5,17 @@ RUN xbps-install -Sy                 \
     xbps
 RUN xbps-install -Syu
 RUN xbps-install -Sy                 \
-    quark
+    gcc                              \
+    git                              \
+    make
+
+RUN git clone   \
+    --depth=1   \
+    --recursive \
+    git://git.suckless.org/quark
+WORKDIR quark
+RUN make
+RUN make install
 
 FROM scratch
 
