@@ -2,20 +2,22 @@ FROM voidlinux/voidlinux-musl:latest as build
 
 RUN echo repository=https://repo-fastly.voidlinux.org/current/musl/nonfree > /etc/xbps.d/10-repository-nonfree.conf
 RUN xbps-install -Sy                 \
-    xbps
-RUN xbps-install -Syu
-RUN xbps-install -Sy                 \
+    xbps                             \
+&&  xbps-install -Syu                \
+&&  xbps-install -Sy                 \
     gcc                              \
     git                              \
-    make
-
-RUN git clone   \
-    --depth=1   \
-    --recursive \
-    git://git.suckless.org/quark
-WORKDIR quark
-RUN make
-RUN make install
+    make                             \
+&&  git clone                        \
+    --depth=1                        \
+    --recursive                      \
+    git://git.suckless.org/quark     \
+&&  cd quark                         \
+&&  make                             \
+&&  make install                     \
+&&        command -v quark           \
+&&  ldd $(command -v quark)
+#WORKDIR quark
 
 FROM scratch
 
